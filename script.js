@@ -1,17 +1,57 @@
-function lookupCountry() {
-  const input = document.getElementById("codeInput").value.trim();
-  const resultDiv = document.getElementById("result");
+document.getElementById("search-btn").addEventListener("click", () => {
+  const code = document.getElementById("code-input").value.trim();
+  const data = countryCodes[code];
 
-  if (!input) {
-    resultDiv.textContent = "Please enter a country code.";
-    return;
-  }
+  const flagEl = document.getElementById("flag");
+  const nameEl = document.getElementById("country-name");
+  const warningEl = document.getElementById("warning-message");
 
-  const country = countryCodes[input];
+  if (data) {
+    nameEl.textContent = data.name;
 
-  if (country) {
-    resultDiv.textContent = `Country: ${country}`;
+    // Show flag
+    const flagEmoji = getFlagEmoji(data.name);
+    flagEl.textContent = flagEmoji;
+
+    // Handle warning
+    if (data.warning === "red") {
+      warningEl.textContent = "🚫 Do Not Call";
+      warningEl.className = "red-warning";
+    } else if (data.warning === "yellow") {
+      warningEl.textContent = "⚠️ Caution – Escalate During Qualification";
+      warningEl.className = "yellow-warning";
+    } else {
+      warningEl.textContent = "";
+      warningEl.className = "";
+    }
+
   } else {
-    resultDiv.textContent = "Country not found for this code.";
+    nameEl.textContent = "❌ Country not found";
+    flagEl.textContent = "";
+    warningEl.textContent = "";
   }
+});
+
+// Convert country name to ISO → emoji flag
+function getFlagEmoji(countryName) {
+  const countryToISO = {
+    "India": "IN",
+    "Afghanistan": "AF",
+    "Belarus": "BY",
+    "Serbia": "RS",
+    "China": "CN",
+    "Venezuela": "VE",
+    "United States": "US",
+    "United Kingdom": "GB",
+    "France": "FR",
+    "Germany": "DE"
+    // Add more mappings if needed
+  };
+
+  const iso = countryToISO[countryName];
+  if (!iso) return "🌐";
+
+  return [...iso.toUpperCase()].map(c =>
+    String.fromCodePoint(127397 + c.charCodeAt())
+  ).join('');
 }
