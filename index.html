@@ -3,35 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Country Code Lookup</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 2rem;
-      text-align: center;
-    }
-    input {
-      padding: 0.5rem;
-      font-size: 1rem;
-      width: 200px;
-    }
-    button {
-      padding: 0.5rem 1rem;
-      margin-left: 1rem;
-      font-size: 1rem;
-    }
-    #result {
-      margin-top: 1rem;
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-  </style>
+  <title>Country Code Search</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Country Code Lookup</h1>
-  <input type="text" id="codeInput" placeholder="Enter code (e.g. 91)" />
-  <button onclick="lookupCountry()">Search</button>
-  <div id="result"></div>
+  <h1>📞 Country Code Search</h1>
+  <input type="text" placeholder="Enter country code" id="code-input" />
+  <button id="search-btn">Search</button>
+
+  <div id="result" class="result">
+    <span id="flag" class="flag"></span>
+    <span id="country-name"></span>
+    <div id="warning-message"></div>
+  </div>
 
   <script src="data.js"></script>
   <script src="script.js"></script>
